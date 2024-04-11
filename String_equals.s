@@ -1,11 +1,10 @@
-/* Programmer: Adam Lenzini
+/*****************************************************************
+*  Collaborators: Adam Lenzini, Jazmine Encarnacion, Yusuf Taheri
 *  String_equals
 *  Purpose: Check to see if two strings are equal to each other. If not,
-*	    return 0. If yes, return 1
-*  Author: Adam Lenzini
-*  Date Last Modified: 10 April, 2024
-*/
-
+*           return 0. If yes, return 1
+*  Date Last Modified: 4/11/24
+*****************************************************************/
    .data
 
    .global String_equals
