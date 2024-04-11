@@ -1,73 +1,85 @@
-	.global
+/* Collaborators: Adam Lenzini, Jazmine Encarnacion, Yusuf Taheri
+*  String_concat
+*  Purpose: Take two strings, and combine them into one
+*  Date Last Modified: 11 April, 2024
+*/
 
-str_concat:						// "\n22. String_concat(s1, '' ''); String_concat(s1, s2) =  "
+   .global String_concat
 
-	ldr	x0,=test22				// test string address
-	bl	putstring				// print
+   .data
+newPtr:	.quad 0
 
-	ldr     x0, =s1					// load s1 address to x0
-	bl      String_length				// obtain length
-	bl      malloc					// allocate memory for string
-	ldr     x1, =newPtr				// load address of ptr to x1
-	str     x0, [x1]				// store value stored in x1 to x0
+   .text
+String_concat:
+   str	x30,[SP,#-16]!	// push x30 onto the stack
+   str	x0,[SP,#-16]!	// push x0 onto the stack
+   str	x1,[SP,#-16]!	// push x1 onto the stack
 
-	ldr     x0, =s1					// load s1 address to x0
-	ldr     x1, [x1]    				// load value in address to x1
-	bl      copy_string				// copy string function
+   bl	String_length	// branch and link to String_length
 
-	ldr     x0, =newPtr				// load newPtr address to x0
-	ldr     x0, [x0]				// load value stored in adr to x0
-	bl      putstring				// print
+   mov	x2,x0		// copy x0 into x2
 
-	ldr     x0, =newPtr				// load address to x0
-	ldr     x0, [x0]				// load value stored in adr to x0
-	bl      free					// free memory
+   ldr	x1,[SP], #16	// pop x1 off the stack
+   mov	x0,x1		// copy x1 into x0
+   str	x1,[SP,#-16]!	// push x1 onto the stack
+   str	x2,[SP,#-16]!	// push x2 onto the stack
 
-	ldr     x0, =szSpace				// load s1 address to x0
-	bl      String_length				// obtain length
-	bl      malloc					// allocate memory for string
-	ldr     x1, =newPtr				// load address of ptr to x1
-	str     x0, [x1]				// store value stored in x1 to x0
+   bl	String_length	// branch and link to String_length
 
-	ldr     x0, =szSpace				// load s1 address to x0
-	ldr     x1, [x1]    				// load value in address to x1
-	bl      copy_string				// copy string function
+   mov	x3,x0		// copy x0 into x3
+   ldr	x2,[SP], #16	// pop x2 off the stack
 
-	ldr     x0, =newPtr				// load newPtr address to x0
-	ldr     x0, [x0]				// load value stored in adr to x0
-	bl      putstring				// print
+   add	x0,x3,x2	// add x3 and x2 and store in x0
+   add	x0,x0,#1	// add 1 to x0
 
-	ldr     x0, =newPtr				// load address to x0
-	ldr     x0, [x0]				// load value stored in adr to x0
-	bl      free					// free memory
+   str	x2,[SP,#-16]!	// push x2 onto the stack
+   str	x3,[SP,#-16]!	// push x3 onto the stack
 
-	ldr     x0, =s2					// load s1 address to x0
-	bl      String_length				// obtain length
-	bl      malloc					// allocate memory for string
-	ldr     x1, =newPtr				// load address of ptr to x1
-	str     x0, [x1]				// store value stored in x1 to x0
+   bl	malloc		// branch and link to malloc
 
-	ldr     x0, =s2					// load s1 address to x0
-	ldr     x1, [x1]    				// load value in address to x1
-	bl      copy_string				// copy string function
+   ldr	x1,=newPtr	// load the address of newPtr to x1
+   str	x0,[x1]		// store x0 in x1
 
-	ldr     x0, =newPtr				// load newPtr address to x0
-	ldr     x0, [x0]				// load value stored in adr to x0
-	bl      putstring				// print
+   ldr	x4,[SP], #16	// pop x4 off the stack
+   ldr	x3,[SP], #16	// pop x3 off the stack
+   ldr	x2,[SP], #16	// pop x2 off the stack
+   ldr	x1,[SP], #16	// pop x1 off the stack
+   //ldr	x30,[SP], #16
+   mov	x5,#0		// copy 0 into x5
+   mov	x6,#0		// copy 0 into x5
+   ldr	x0,=newPtr	// load the address of newPtr to x0
+   ldr	x0,[x0]		// load the value of newPtr to x0
 
-	ldr     x0, =newPtr				// load address to x0
-	ldr     x0, [x0]				// load value stored in adr to x0
-	bl      free					// free memory
+copy_first:
+   //ldrb	w3,[x0]
+   cmp	x5, x3		// compare x5 and x3
+   beq	copy_second	// branch to copy_second if x5 and x3 are equal
 
-	
-	b	exit_seq				// last test case, jump directly to end	--------- BRANCH BRANCH EXIT
+   ldrb	w7,[x1, x5]	// load a byte from x1 offset by x5 to w7
+   strb	w7,[x0, x5]	// store a byte from w7 into x0 offset by x5
 
+   //add	x0,x0,#1
+   add	x5,x5,#1	// add 1 to x5
 
-copy_string:	
-    ldrb   w2, [x0], #1    	  // Load byte from source and increment source pointer
-    strb   w2, [x1], #1    	  // Store byte to destination and increment destination pointer
-    cbz    w2, end_copy_string    // Check for null terminator
-    b      copy_string     	  // continue to copy if not
+   b	copy_first	// branch back to copy_first
 
-end_copy_string:
-    ret				// return to the place it was called!
+copy_second:
+   cmp	x6, x4		// compare x6 and x4
+   beq	move_copy	// branch to move_copy if x6 and x4 are equal
+
+   ldrb	w7,[x2, x6]	// load a byte from x2 offset by x6 to w7
+   strb	w7,[x0, x5]	// store a byte from w7 into x0 offset by x5
+
+   add	x5,x5,#1	// add 1 to x5
+   add	x6,x6,#1	// add 1 to x6
+
+   b	copy_second	// branch back to copy_second
+
+move_copy:
+   ldr	x0,=newPtr	// load the address of newPtr to x0
+   ldr	x0,[x0]		// load the value of newPtr to x0
+   //bl	free
+   ldr	x30,[SP], #16	// pop x30 off the stack
+   RET	LR		// return to the address contained in the link register
+   .end
+
