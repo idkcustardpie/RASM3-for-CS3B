@@ -1,8 +1,7 @@
 /*****************************************************************
 *  Collaborators: Yusuf Taheri, Adam Lenzini, Jazmine Encarnacion
-*  String_lastIndexOf_1
-*  Purpose: Locate the last index in which a certain letter of
-*				a string is found
+*  String_toLowerCase_1
+*  Purpose: Turn the string into all lower case characters
 *  Date Last Modified: 4/11/24
 *****************************************************************/
 

@@ -1,3 +1,10 @@
+/*****************************************************************
+*  Collaborators: Yusuf Taheri, Adam Lenzini, Jazmine Encarnacion
+*  String_toUpperCase_1
+*  Purpose: Turn the entire string to all uppercase characters
+*  Date Last Modified: 4/11/24
+*****************************************************************/
+
 	.global	String_toUpperCase
 
 String_toUpperCase:
@@ -23,7 +30,6 @@ not_lowercase:
     b     uppercase_loop        // Repeat the loop for the next character
 
 done_conversion:
-    // Print the modified string
-    RET   LR			// return
+	 RET		LR						  // Return to the address in the Link Register
 
     .end

@@ -1,8 +1,16 @@
-
+/*******************************************************************
+*  Collaborators: Yusuf Taheri, Adam Lenzini, Jazmine Encarnacion
+*  String_replace
+*  Purpose: Takes a string and takes two letters in which the first
+*			   letter is replaced by the second letter any time it
+*				occurs in the string
+*  Date Last Modified: 4/11/24
+*******************************************************************/
 	.global	String_replace
 
 String_replace:
 	// blank
+
 replace_loop:
     ldrb  w1, [x0]              // Load the byte (character) of the string into w1
 
@@ -18,6 +26,6 @@ check_end:
     b     replace_loop          // Repeat the loop for the next character
 
 done_replace:
-    // Print the modified string
-	ret			// return
+    RET	 LR						  // Return to the address stored in the link register
+
 	.end
