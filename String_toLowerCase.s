@@ -1,3 +1,11 @@
+/*****************************************************************
+*  Collaborators: Yusuf Taheri, Adam Lenzini, Jazmine Encarnacion
+*  String_lastIndexOf_1
+*  Purpose: Locate the last index in which a certain letter of
+*				a string is found
+*  Date Last Modified: 4/11/24
+*****************************************************************/
+
 	.global	String_toLowerCase
 
 String_toLowerCase:
@@ -17,13 +25,12 @@ lowercase_loop:
 
 not_uppercase:
     cmp   w1, #0                // Check if we've reached the end of the string (null terminator)
-    beq   done_conversion1       // If yes, exit the loop
+    beq   done_conversion1      // If yes, exit the loop
 
     add   x0, x0, #1            // Move to the next character in the string
     b     lowercase_loop        // Repeat the loop for the next character
 
 done_conversion1:
-    // Print the modified string
-    RET	  LR				// return
+    RET		LR						  // Return to the address in the Link Register
 
     .end
