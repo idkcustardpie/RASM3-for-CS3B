@@ -1,48 +1,20 @@
-	.global	String_length
+ .global String_length
 
+   .text
 String_length:
-	ldr	x0,=s1Text				// load address to x0
-	bl	putstring				// print string
+   mov	x2, #0	// copy 0 into x2
 
-	ldr	x0,=s1     				// load string address in x0
-	bl    	String_length    			// obtain length
+length_loop:
+   ldrb	w1,[x0]		// load a byte of x0 into w1
+   cmp	w1, #0		// compare w1 to 0/0x00
+   beq	end_length	// branch to end_length if equal
+   add	x0, x0, #1	// add 1 to x0 and store in x0
+   add	x2, x2, #1	// add 1 to x2 and store in x2
+   b	length_loop	// branch back to length_loop
 
-	ldr	x1, =db1    				// load address to x0
-	str	x0,[x1]          			// store value in x1 to x0
+end_length:
+   mov	x0, x2	// copy x2 to x0
 
-	ldr	x1, =sz1         			// load address to x1
-	bl	int64asc    				// convert to ascii, put in szLength
+   RET	LR	// Return to the address contained in the link register
 
-	ldr	x0,=sz1     				// load address to x0
-	bl	putstring        			// print the string length value
-
-	ldr	x0,=s2Text				// load address to x0
-	bl	putstring				// print string
-
-	ldr	x0,=s2    				// load string address in x0
-	bl    	String_length    			// obtain length
-
-	ldr	x2,=db2    				// load address to x0
-	str	x0,[x2]          			// store value in x1 to x0
-
-	ldr	x1, =sz2        			// load address to x1
-	bl	int64asc    				// convert to ascii, put in szLength
-
-	ldr	x0,=sz2     				// load address to x0
-	bl	putstring        			// print the string length value
-
-	ldr	x0,=s3Text				// load address to x0
-	bl	putstring				// print string
-
-	ldr	x0,=s3     				// load string address in x0
-	bl    	String_length    			// obtain length
-
-	ldr	x3, =db3    				// load address to x0
-	str	x0,[x3]          			// store value in x1 to x0
-
-	ldr	x1, =sz3         			// load address to x1
-	bl	int64asc    				// convert to ascii, put in szLength
-
-	ldr	x0,=sz3     				// load address to x0
-	bl	putstring        			// print the string length value
-
+   .end

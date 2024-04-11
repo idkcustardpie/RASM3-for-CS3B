@@ -1,9 +1,6 @@
 	.global	String_lastIndexOf_3
 
 String_lastIndexOf_3:
-	ldr	x0,=test18				// test string address
-	bl	putstring				// print
-	ldr     x0, =s2                // Load address of s2 into x0
 	mov     x1, #0                // Initialize index to 0
 
 search_loop_3_last:
@@ -41,11 +38,5 @@ find_g_2_last:
 	b	end_search_3_last
 
 end_search_3_last:
-   	ldr	x0,=newPtr
-	str	x1,[x0]
-   	ldr	x0,=newPtr
-	ldr	x0,[x0]
-	ldr	x1,=szBuffer
-	bl	int64asc
-	ldr	x0,=szBuffer
-	bl	putstring
+	RET	LR			// return
+	.end

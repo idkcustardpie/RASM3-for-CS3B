@@ -1,4 +1,4 @@
-/* Collaborators: Adam Lenzini, jazmine Encarnacion, Yusuf Taheri
+/* Programmer: Adam Lenzini
 *  String_startsWith_1
 *  Purpose: Receives a string and a substring and returns a 1 if the 
             string starts with the substring, and a 0 otherwise
@@ -16,7 +16,7 @@ String_startsWith_2:
 
 starts_loop:
    ldrb	w2,[x1]  // load a byte from x1 to w2
-   cmp	w2,#0    // compare w2 and 0/0x00
+   cmp	w2,#0 // compare w2 and 0/0x00
    beq	finish   // branch to finish if w2 is equal o 0x00
 
    ldrb	w4,[x0]  // load a byte from x0 into w4

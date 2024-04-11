@@ -1,4 +1,4 @@
-/* Collaborator: Adam Lenzini, Jazmine Encarnacion, Yusuf Taheri
+/* Programmer: Adam Lenzini
 *  String_substring_1
 *  Purpose: Create a dynamically allocated string, and copy the substring
 *           of a string from one character to another into it

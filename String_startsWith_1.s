@@ -1,4 +1,4 @@
-/* Collaborators: Adam Lenzini, Jazmine Encarnacion, Yusuf Taheri
+/* Programmer: Adam Lenzini
 *  String_startsWith_1
 *  Purpose: Receives a string, an index, and a substring and returns a 1 if
             the string starts with the substring at that index, and a 0 otherwise
