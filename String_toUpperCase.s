@@ -1,10 +1,7 @@
 	.global	String_toUpperCase
 
 String_toUpperCase:
-    ldr   x0, =test21           // Load address of test string into x0
-    bl    putstring             // Print the test string
-
-    ldr   x0, =s1               // Load address of s1 (your string) into x0
+	// blank
 
 uppercase_loop:
     ldrb  w1, [x0]              // Load the byte (character) of the string into w1
@@ -27,5 +24,6 @@ not_lowercase:
 
 done_conversion:
     // Print the modified string
-    ldr   x0, =s1               // Load address of s1 into x0
-    bl    putstring             // Print the modified string
+    RET   LR			// return
+
+    .end
